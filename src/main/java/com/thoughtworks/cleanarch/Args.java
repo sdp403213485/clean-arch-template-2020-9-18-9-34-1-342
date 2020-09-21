@@ -42,7 +42,7 @@ public class Args {
     }
     private void checkFlag(Arg arg1,Arg arg) throws Exception {
         if(arg1.getFlag().equals(arg.getFlag())){
-            throw new Exception("格式错误");
+            throw new Exception("参数输入重复");
         }
     }
 

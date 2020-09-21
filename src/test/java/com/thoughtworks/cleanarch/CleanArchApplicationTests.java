@@ -34,4 +34,27 @@ class CleanArchApplicationTests {
 		}
 	}
 
+	@Test
+	public void should_return_rightArgs_when_inputArgs() throws Exception {
+		String inputArgs = "-l true -p 8080 -d /usr/logs";
+
+		Args args = new Args(inputArgs);
+
+		assertEquals("[Arg{flag='l', value=true, type='boolean'}, " +
+						"Arg{flag='p', value=8080, type='int'}, " +
+						"Arg{flag='d', value=/usr/logs, type='String'}]"
+				,args.getArgList().toString());
+	}
+
+	@Test
+	public void should_throw_repeatError_when_error_input_value() throws Exception {
+		String inputArgs = "-p true -p false";
+
+		try {
+			Args args = new Args(inputArgs);
+		} catch (Exception exception) {
+			System.out.println(exception.getMessage());
+			assertThat(exception.getMessage(), is("参数输入重复"));
+		}
+	}
 }
