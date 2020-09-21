@@ -7,14 +7,16 @@ public class Arg {
     private Object value;
     private String type;
 
-    public Arg(String flag, Object value) {
+    public Arg(String flag, Object value, String type) {
         this.flag = flag;
         this.value = value;
+        this.type = type;
     }
 
+    public static Arg of(List<Object> argList) throws Exception {
+        Schema schema = SchemaType.create((String) argList.get(0));
 
-    public static Arg of(List<String> asList) {
-        return new Arg(asList.get(0),asList.get(1));
+        return new Arg((String) argList.get(0),argList.get(1),schema.getValueType());
     }
 
     @Override
@@ -22,6 +24,7 @@ public class Arg {
         return "Arg{" +
                 "flag='" + flag + '\'' +
                 ", value=" + value +
+                ", type='" + type + '\'' +
                 '}';
     }
 
